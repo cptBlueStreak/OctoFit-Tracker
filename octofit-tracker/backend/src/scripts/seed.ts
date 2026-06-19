@@ -10,7 +10,7 @@ import Activity from '../models/activity'
 import Workout from '../models/workout'
 import Leaderboard from '../models/leaderboard'
 
-import { connectDb, disconnectDb } from '../database'
+import { connectDb, disconnectDb } from '../config/database'
 
 async function seed() {
   await connectDb()

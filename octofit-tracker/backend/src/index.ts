@@ -4,7 +4,7 @@ import teamsRouter from './routes/teams'
 import activitiesRouter from './routes/activities'
 import leaderboardRouter from './routes/leaderboard'
 import workoutsRouter from './routes/workouts'
-import { connectDb, MONGODB_URI } from './database'
+import { connectDb, MONGODB_URI } from './config/database'
 
 const app = express()
 const PORT = process.env.PORT ? Number(process.env.PORT) : 8000
