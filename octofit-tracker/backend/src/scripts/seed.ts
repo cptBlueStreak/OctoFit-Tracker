@@ -10,10 +10,10 @@ import Activity from '../models/activity'
 import Workout from '../models/workout'
 import Leaderboard from '../models/leaderboard'
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/octofit_db'
+import { connectDb, disconnectDb } from '../database'
 
 async function seed() {
-  await mongoose.connect(MONGODB_URI)
+  await connectDb()
   console.log('Seed the octofit_db database with test data')
 
   // Clear existing data
@@ -65,7 +65,7 @@ async function seed() {
   ])
 
   console.log('Seeding complete')
-  await mongoose.disconnect()
+  await disconnectDb()
 }
 
 seed().catch(err => {
