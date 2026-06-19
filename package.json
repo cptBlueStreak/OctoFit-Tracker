@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/cptBlueStreak/OctoFit-Tracker/issues"
   },
-  "homepage": "https://github.com/cptBlueStreak/OctoFit-Tracker#readme"
+  "homepage": "https://github.com/cptBlueStreak/OctoFit-Tracker#readme",
+  "devDependencies": {
+    "@types/node": "^26.0.0"
+  }
 }
