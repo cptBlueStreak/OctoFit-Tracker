@@ -3,20 +3,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * Seed the octofit_db database with test data
- *
- * Run with: `npm run seed` (from backend package scripts)
- */
-const mongoose_1 = __importDefault(require("mongoose"));
 const user_1 = __importDefault(require("../models/user"));
 const team_1 = __importDefault(require("../models/team"));
 const activity_1 = __importDefault(require("../models/activity"));
 const workout_1 = __importDefault(require("../models/workout"));
 const leaderboard_1 = __importDefault(require("../models/leaderboard"));
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/octofit_db';
+const database_1 = require("../database");
 async function seed() {
-    await mongoose_1.default.connect(MONGODB_URI);
+    await (0, database_1.connectDb)();
     console.log('Seed the octofit_db database with test data');
     // Clear existing data
     await Promise.all([
@@ -60,7 +54,7 @@ async function seed() {
         { user: users[1]._id, rank: 3, points: users[1].points || 0 }
     ]);
     console.log('Seeding complete');
-    await mongoose_1.default.disconnect();
+    await (0, database_1.disconnectDb)();
 }
 seed().catch(err => {
     console.error('Seeding failed:', err);

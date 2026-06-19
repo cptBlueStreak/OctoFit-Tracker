@@ -4,15 +4,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const mongoose_1 = __importDefault(require("mongoose"));
 const users_1 = __importDefault(require("./routes/users"));
 const teams_1 = __importDefault(require("./routes/teams"));
 const activities_1 = __importDefault(require("./routes/activities"));
 const leaderboard_1 = __importDefault(require("./routes/leaderboard"));
 const workouts_1 = __importDefault(require("./routes/workouts"));
+const database_1 = require("./database");
 const app = (0, express_1.default)();
 const PORT = process.env.PORT ? Number(process.env.PORT) : 8000;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/octofit_db';
 // Basic JSON parsing
 app.use(express_1.default.json());
 // Simple CORS middleware that allows frontend (5173) and Codespaces preview domain
@@ -48,8 +47,7 @@ app.get('/', (_req, res) => {
 });
 async function start() {
     try {
-        await mongoose_1.default.connect(MONGODB_URI);
-        console.log('Connected to MongoDB');
+        await (0, database_1.connectDb)();
         // If running in Codespaces, expose a likely external API URL for previews
         if (process.env.CODESPACE_NAME) {
             const name = process.env.CODESPACE_NAME;
