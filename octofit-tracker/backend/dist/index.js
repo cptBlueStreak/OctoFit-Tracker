@@ -9,7 +9,7 @@ const teams_1 = __importDefault(require("./routes/teams"));
 const activities_1 = __importDefault(require("./routes/activities"));
 const leaderboard_1 = __importDefault(require("./routes/leaderboard"));
 const workouts_1 = __importDefault(require("./routes/workouts"));
-const database_1 = require("./database");
+const database_1 = require("./config/database");
 const app = (0, express_1.default)();
 const PORT = process.env.PORT ? Number(process.env.PORT) : 8000;
 // Basic JSON parsing

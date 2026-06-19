@@ -8,7 +8,7 @@ const team_1 = __importDefault(require("../models/team"));
 const activity_1 = __importDefault(require("../models/activity"));
 const workout_1 = __importDefault(require("../models/workout"));
 const leaderboard_1 = __importDefault(require("../models/leaderboard"));
-const database_1 = require("../database");
+const database_1 = require("../config/database");
 async function seed() {
     await (0, database_1.connectDb)();
     console.log('Seed the octofit_db database with test data');
