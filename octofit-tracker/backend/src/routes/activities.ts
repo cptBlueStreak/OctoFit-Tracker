@@ -1,14 +1,17 @@
 import { Router, Request, Response } from 'express'
+import Activity from '../models/activity'
 
 const router = Router()
 
-router.get('/', (_req: Request, res: Response) => {
-  res.json({ message: 'List activities (placeholder)', activities: [] })
+router.get('/', async (_req: Request, res: Response) => {
+  const activities = await Activity.find().populate('user').limit(200).lean()
+  res.json({ activities })
 })
 
-router.post('/', (req: Request, res: Response) => {
-  const activity = req.body
-  res.status(201).json({ message: 'Create activity (placeholder)', activity })
+router.post('/', async (req: Request, res: Response) => {
+  const a = new Activity(req.body)
+  await a.save()
+  res.status(201).json({ activity: a })
 })
 
 export default router

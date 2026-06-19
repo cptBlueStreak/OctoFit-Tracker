@@ -1,14 +1,17 @@
 import { Router, Request, Response } from 'express'
+import Workout from '../models/workout'
 
 const router = Router()
 
-router.get('/', (_req: Request, res: Response) => {
-  res.json({ message: 'List workouts (placeholder)', workouts: [] })
+router.get('/', async (_req: Request, res: Response) => {
+  const workouts = await Workout.find().populate('user activities').limit(200).lean()
+  res.json({ workouts })
 })
 
-router.post('/', (req: Request, res: Response) => {
-  const workout = req.body
-  res.status(201).json({ message: 'Create workout (placeholder)', workout })
+router.post('/', async (req: Request, res: Response) => {
+  const w = new Workout(req.body)
+  await w.save()
+  res.status(201).json({ workout: w })
 })
 
 export default router
