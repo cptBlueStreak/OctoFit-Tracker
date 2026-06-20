@@ -58,22 +58,22 @@ jobs:
 
       # START: Check practical exercise
 
-      - name: Check server.ts uses codespace env variable
+      - name: Check index.ts uses codespace env variable
         id: check-codespace-name
         continue-on-error: true
         uses: skills/action-keyphrase-checker@v2.0.0
         with:
-          text-file: octofit-tracker/backend/src/server.ts
+          text-file: octofit-tracker/backend/src/index.ts
           keyphrase: 'CODESPACE_NAME'
           minimum-occurrences: 1
           case-sensitive: false
 
-      - name: Check server.ts includes codespace URL pattern
+      - name: Check index.ts includes codespace URL pattern
         id: check-codespace-url
         continue-on-error: true
         uses: skills/action-keyphrase-checker@v2.0.0
         with:
-          text-file: octofit-tracker/backend/src/server.ts
+          text-file: octofit-tracker/backend/src/index.ts
           keyphrase: '-8000.app.github.dev'
           minimum-occurrences: 1
           case-sensitive: false
