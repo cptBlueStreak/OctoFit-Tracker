@@ -20,9 +20,8 @@ app.use((req, res, next) => {
     'http://127.0.0.1:5173'
   ]
   if (codespace) {
-    // GitHub Codespaces preview URL pattern (best-effort)
-    allowedOrigins.push(`https://${codespace}-5173.githubpreview.dev`)
-    allowedOrigins.push(`https://${codespace}-8000.githubpreview.dev`)
+    allowedOrigins.push(`https://${codespace}-5173.app.github.dev`)
+    allowedOrigins.push(`https://${codespace}-8000.app.github.dev`)
   }
   const origin = req.headers.origin as string | undefined
   if (origin && allowedOrigins.includes(origin)) {
@@ -49,15 +48,15 @@ async function start() {
   try {
     await connectDb()
 
-    // If running in Codespaces, expose a likely external API URL for previews
-    if (process.env.CODESPACE_NAME) {
-      const name = process.env.CODESPACE_NAME
-      const apiUrl = `https://${name}-8000.githubpreview.dev`
-      console.log(`Codespaces detected. API external URL (preview): ${apiUrl}`)
+    // If running in Codespaces, expose the preferred external API URL
+    const codespace = process.env.CODESPACE_NAME
+    if (codespace) {
+      const apiUrl = `https://${codespace}-8000.app.github.dev`
+      console.log(`Codespaces detected. API external URL: ${apiUrl}`)
     }
 
-    // Bind to 0.0.0.0 so Codespaces port forwarding can reach the server
-    const host = process.env.CODESPACE_NAME ? '0.0.0.0' : 'localhost'
+    // Bind to 0.0.0.0 in Codespaces, otherwise localhost
+    const host = codespace ? '0.0.0.0' : 'localhost'
     app.listen(PORT, host, () => console.log(`Server listening on ${host}:${PORT}`))
   } catch (err) {
     console.error('Failed to start server:', err)
